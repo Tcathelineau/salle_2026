@@ -45,11 +45,11 @@
     }
     .brick-layer {
       background: linear-gradient(90deg, #cd5c5c, #e08080);
-      z-index: 1;
+      z-index: 2;
     }
     .yellow-layer {
       background: linear-gradient(90deg, #ffd700, #ffed4e);
-      z-index: 2;
+      z-index: 3;
     }
     .labels {
       display: flex;
@@ -112,13 +112,20 @@
   <script>
     // Fonction pour calculer les jours écoulés
     function calculateDaysElapsed() {
-      const startDate = new Date('2026-01-01');
-      const endDate = new Date('2026-06-01');
+      const startDate = new Date('2026-01-01T00:00:00');
+      const endDate = new Date('2026-06-01T00:00:00');
       const today = new Date();
       
+      // Normaliser la date du jour à minuit pour un calcul précis
+      const todayNormalized = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      
       const totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
-      const daysElapsed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+      const daysElapsed = Math.floor((todayNormalized - startDate) / (1000 * 60 * 60 * 24));
       const clampedDays = Math.max(0, Math.min(daysElapsed, totalDays));
+      
+      console.log('Date actuelle:', today);
+      console.log('Jours écoulés depuis le 1er janvier:', daysElapsed);
+      console.log('Total jours (1er jan → 1er juin):', totalDays);
       
       return {
         current: clampedDays,
