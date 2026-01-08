@@ -15,140 +15,112 @@
       background: transparent;
       padding: 20px;
     }
-    .fishing-container {
-      position: relative;
+    .container {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1400px;
       margin: 0 auto;
       background: linear-gradient(180deg, #d4b896 0%, #c9a876 100%);
       border: 4px solid #8b6f47;
       border-radius: 20px;
-      padding: 40px 30px 30px 30px;
+      padding: 40px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    .fishing-rod {
-      position: absolute;
-      top: 20px;
-      left: 50px;
-      width: 80px;
-      height: auto;
-      z-index: 10;
-      transform-origin: bottom left;
-      transition: transform 0.3s ease;
-    }
-    .fishing-line {
-      position: absolute;
-      top: 40px;
-      left: 90px;
-      width: 2px;
-      height: 0;
-      background: #333;
-      z-index: 5;
-      transition: height 1s ease-out;
-    }
-    .progress-bar-container {
+    .progress-bar {
       position: relative;
       width: 100%;
-      height: 60px;
+      height: 80px;
       background: #e5e5e5;
       border: 3px solid #8b6f47;
-      border-radius: 30px;
+      border-radius: 40px;
       overflow: hidden;
       box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .progress-section {
+    .progress-layer {
       position: absolute;
       height: 100%;
       top: 0;
+      left: 0;
       transition: width 1s ease-out;
     }
-    .yellow-section {
-      left: 0;
-      background: linear-gradient(90deg, #ffd700, #ffed4e);
-      border-right: 2px solid #d4af37;
-      z-index: 2;
-    }
-    .brick-section {
-      left: 0;
-      background: linear-gradient(90deg, #cd5c5c, #a0422f);
+    .brick-layer {
+      background: linear-gradient(90deg, #cd5c5c, #e08080);
       z-index: 1;
     }
-    .hotdog-container {
-      position: absolute;
-      top: -20px;
-      z-index: 15;
-      transition: left 1s ease-out;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    .yellow-layer {
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      z-index: 2;
     }
-    .hotdog-img {
-      width: 60px;
+    .hotdog-dog {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 100px;
       height: auto;
+      z-index: 3;
+      transition: left 1s ease-out;
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
-    .hook-line {
-      width: 2px;
-      height: 20px;
-      background: #333;
-      margin-bottom: -5px;
+    .hotdog {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 60px;
+      height: auto;
+      z-index: 3;
+      transition: left 1s ease-out;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
     }
     .labels {
       display: flex;
       justify-content: space-between;
-      margin-top: 15px;
-      font-size: 14px;
+      margin-top: 20px;
+      font-size: 16px;
       font-weight: 600;
       color: #5a4a3a;
     }
     .label {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
-    .color-box {
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
+    .color-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
       border: 2px solid #8b6f47;
     }
-    .yellow-box {
+    .yellow-indicator {
       background: linear-gradient(90deg, #ffd700, #ffed4e);
     }
-    .brick-box {
-      background: linear-gradient(90deg, #cd5c5c, #a0422f);
+    .brick-indicator {
+      background: linear-gradient(90deg, #cd5c5c, #e08080);
     }
   </style>
 </head>
 <body>
-  <div class="fishing-container">
-    <img src="https://raw.githubusercontent.com/Tcathelineau/salle_2026/main/images/fishing-rod.png" 
-         alt="Canne à pêche" 
-         class="fishing-rod" 
-         id="fishingRod">
-    
-    <div class="fishing-line" id="fishingLine"></div>
-    
-    <div class="progress-bar-container">
-      <div class="progress-section brick-section" id="brickSection"></div>
-      <div class="progress-section yellow-section" id="yellowSection"></div>
+  <div class="container">
+    <div class="progress-bar">
+      <div class="progress-layer brick-layer" id="brickLayer"></div>
+      <div class="progress-layer yellow-layer" id="yellowLayer"></div>
       
-      <div class="hotdog-container" id="hotdogContainer">
-        <div class="hook-line"></div>
-        <img src="https://raw.githubusercontent.com/Tcathelineau/salle_2026/main/images/hotdog-dog.png" 
-             alt="Hot-dog chien" 
-             class="hotdog-img" 
-             id="hotdogImg">
-      </div>
+      <img src="https://raw.githubusercontent.com/Tcathelineau/salle_2026/main/images/hotdog-dog.png" 
+           alt="Chien hot-dog" 
+           class="hotdog-dog" 
+           id="hotdogDog">
+      
+      <img src="https://raw.githubusercontent.com/Tcathelineau/salle_2026/main/images/hotdog.png" 
+           alt="Hot-dog" 
+           class="hotdog" 
+           id="hotdog">
     </div>
     
     <div class="labels">
       <div class="label">
-        <div class="color-box yellow-box"></div>
+        <div class="color-indicator yellow-indicator"></div>
         <span>Visite salle: <span id="visiteCount">0</span>/120</span>
       </div>
       <div class="label">
-        <div class="color-box brick-box"></div>
+        <div class="color-indicator brick-indicator"></div>
         <span>Objectif jour: <span id="jourCount">0</span>/145</span>
       </div>
     </div>
@@ -183,26 +155,25 @@
       document.getElementById("visiteCount").innerText = visiteCount;
       document.getElementById("jourCount").innerText = days.current;
       
-      // Animation des barres et du hot-dog
+      // Animation
       setTimeout(() => {
-        const yellowSection = document.getElementById("yellowSection");
-        const brickSection = document.getElementById("brickSection");
-        const hotdogContainer = document.getElementById("hotdogContainer");
-        const fishingLine = document.getElementById("fishingLine");
+        const yellowLayer = document.getElementById("yellowLayer");
+        const brickLayer = document.getElementById("brickLayer");
+        const hotdogDog = document.getElementById("hotdogDog");
+        const hotdog = document.getElementById("hotdog");
+        const barWidth = document.querySelector(".progress-bar").offsetWidth;
         
-        // Mise à jour des sections
-        yellowSection.style.width = visitePercent + "%";
-        brickSection.style.width = jourPercent + "%";
+        // Mise à jour des couches
+        yellowLayer.style.width = visitePercent + "%";
+        brickLayer.style.width = jourPercent + "%";
         
-        // Position du hot-dog (suit la barre jaune)
-        const barWidth = document.querySelector(".progress-bar-container").offsetWidth;
-        const hotdogPosition = (visitePercent / 100) * barWidth - 30; // -30 pour centrer le hot-dog
-        hotdogContainer.style.left = Math.max(0, hotdogPosition) + "px";
+        // Position du chien hot-dog (suit la barre jaune)
+        const dogPosition = Math.max(0, (visitePercent / 100) * barWidth - 50);
+        hotdogDog.style.left = dogPosition + "px";
         
-        // Ligne de pêche qui suit le hot-dog
-        const lineHeight = 60 + 20; // hauteur jusqu'au hot-dog
-        fishingLine.style.height = lineHeight + "px";
-        fishingLine.style.left = (90 + hotdogPosition + 30) + "px"; // Ajusté pour suivre
+        // Position du hot-dog simple (suit la barre rouge)
+        const hotdogPosition = Math.max(0, (jourPercent / 100) * barWidth - 30);
+        hotdog.style.left = hotdogPosition + "px";
       }, 100);
     }
 
