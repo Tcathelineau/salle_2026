@@ -111,12 +111,12 @@
 
     // Fonction pour mettre à jour les barres
     function updateDisplay(visiteCount) {
-      // Barre Visite salle (0 à 60)
-      const visitePercent = Math.min((visiteCount / 60) * 100, 100);
+      // Barre Visite salle (0 à 120)
+      const visitePercent = Math.min((visiteCount / 120) * 100, 100);
 
-      // Barre Objectif jour (jours écoulés)
+      // Barre Objectif jour (jours écoulés jusqu'au 1er juin 2026)
       const days = calculateDaysElapsed();
-      const objectifPercent = Math.min((days.current / 60) * 100, 100);
+      const objectifPercent = Math.min((days.current / days.total) * 100, 100);
       
       // Animation des barres
       setTimeout(() => {
@@ -134,7 +134,7 @@
         return response.json();
       })
       .then(data => {
-        updateDisplay(data.NbrSéances);
+        updateDisplay(data.totalXP);
       })
       .catch(error => {
         console.error('Erreur:', error);
