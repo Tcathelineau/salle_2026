@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Progression Tufting</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: transparent;
+      padding: 12px 16px;
+    }
+    .progress-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .bar-wrapper {
+      background: #4a4a4a;
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .bar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .bar-label {
+      color: #e0e0e0;
+      font-size: 14px;
+      font-weight: 500;
+      width: 100%;
+      text-align: center;
+    }
+    .bar-container {
+      width: 100%;
+      height: 12px;
+      background: #2a2a2a;
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+    .bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 6px;
+      transition: width 1s ease-out;
+    }
+    .bar-fill.xp {
+      background: linear-gradient(90deg, #4a9eff, #357abd);
+      box-shadow: 0 0 8px rgba(74, 158, 255, 0.4);
+    }
+    .bar-fill.time {
+      background: linear-gradient(90deg, #f59e0b, #d97706);
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="progress-container">
+    <!-- Barre Visite salle -->
+    <div class="bar-wrapper">
+      <div class="bar-header">
+        <span class="bar-label">Visite salle</span>
+      </div>
+      <div class="bar-container">
+        <div class="bar-fill xp" id="visiteFill"></div>
+      </div>
+    </div>
+
+    <!-- Barre Objectif jour -->
+    <div class="bar-wrapper">
+      <div class="bar-header">
+        <span class="bar-label">Objectif jour</span>
+      </div>
+      <div class="bar-container">
+        <div class="bar-fill time" id="objectifFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Fonction pour calculer les jours écoulés
+    function calculateDaysElapsed() {
+      const startDate = new Date('2026-01-07');
+      const endDate = new Date('2026-06-01');
+      const today = new Date();
+
+      // Calcul du nombre total de jours entre le 7 janvier et le 1er juin
+      const totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+      
+      // Calcul des jours écoulés depuis le 7 janvier
+      const daysElapsed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+      
+      // S'assurer que la valeur reste entre 0 et totalDays
+      const clampedDays = Math.max(0, Math.min(daysElapsed, totalDays));
+      
+      return {
+        current: clampedDays,
+        total: totalDays
+      };
+    }
+
+    // Fonction pour mettre à jour les barres
+    function updateDisplay(visiteCount) {
+      // Barre Visite salle (0 à 60)
+      const visitePercent = Math.min((visiteCount / 60) * 100, 100);
+
+      // Barre Objectif jour (jours écoulés)
+      const days = calculateDaysElapsed();
+      const objectifPercent = Math.min((days.current / 60) * 100, 100);
+      
+      // Animation des barres
+      setTimeout(() => {
+        document.getElementById("visiteFill").style.width = visitePercent + "%";
+        document.getElementById("objectifFill").style.width = objectifPercent + "%";
+      }, 100);
+    }
+
+    // Charger les données depuis data.json
+    fetch('data.json')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erreur de chargement du fichier data.json');
+        }
+        return response.json();
+      })
+      .then(data => {
+        updateDisplay(data.totalXP);
+      })
+      .catch(error => {
+        console.error('Erreur:', error);
+        // Valeur par défaut en cas d'erreur
+        updateDisplay(0);
+      });
+  </script>
+</body>
+</html>
