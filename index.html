@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Progression Tufting</title>
+  <title>Progression Salle 2026</title>
   <style>
     * {
       margin: 0;
@@ -13,76 +13,143 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
       background: transparent;
-      padding: 12px 16px;
+      padding: 20px;
     }
-    .progress-container {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .bar-wrapper {
-      background: #4a4a4a;
-      border-radius: 8px;
-      padding: 12px 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-    .bar-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .bar-label {
-      color: #e0e0e0;
-      font-size: 14px;
-      font-weight: 500;
-      width: 100%;
-      text-align: center;
-    }
-    .bar-container {
-      width: 100%;
-      height: 12px;
-      background: #2a2a2a;
-      border-radius: 6px;
-      overflow: hidden;
+    .fishing-container {
       position: relative;
-      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #d4b896 0%, #c9a876 100%);
+      border: 4px solid #8b6f47;
+      border-radius: 20px;
+      padding: 40px 30px 30px 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    .bar-fill {
+    .fishing-rod {
+      position: absolute;
+      top: 20px;
+      left: 50px;
+      width: 80px;
+      height: auto;
+      z-index: 10;
+      transform-origin: bottom left;
+      transition: transform 0.3s ease;
+    }
+    .fishing-line {
+      position: absolute;
+      top: 40px;
+      left: 90px;
+      width: 2px;
+      height: 0;
+      background: #333;
+      z-index: 5;
+      transition: height 1s ease-out;
+    }
+    .progress-bar-container {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      background: #e5e5e5;
+      border: 3px solid #8b6f47;
+      border-radius: 30px;
+      overflow: hidden;
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .progress-section {
+      position: absolute;
       height: 100%;
-      width: 0%;
-      border-radius: 6px;
+      top: 0;
       transition: width 1s ease-out;
     }
-    .bar-fill.xp {
-      background: linear-gradient(90deg, #4a9eff, #357abd);
-      box-shadow: 0 0 8px rgba(74, 158, 255, 0.4);
+    .yellow-section {
+      left: 0;
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+      border-right: 2px solid #d4af37;
+      z-index: 2;
     }
-    .bar-fill.time {
-      background: linear-gradient(90deg, #f59e0b, #d97706);
-      box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+    .brick-section {
+      left: 0;
+      background: linear-gradient(90deg, #cd5c5c, #a0422f);
+      z-index: 1;
+    }
+    .hotdog-container {
+      position: absolute;
+      top: -20px;
+      z-index: 15;
+      transition: left 1s ease-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hotdog-img {
+      width: 60px;
+      height: auto;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    }
+    .hook-line {
+      width: 2px;
+      height: 20px;
+      background: #333;
+      margin-bottom: -5px;
+    }
+    .labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #5a4a3a;
+    }
+    .label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .color-box {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      border: 2px solid #8b6f47;
+    }
+    .yellow-box {
+      background: linear-gradient(90deg, #ffd700, #ffed4e);
+    }
+    .brick-box {
+      background: linear-gradient(90deg, #cd5c5c, #a0422f);
     }
   </style>
 </head>
 <body>
-  <div class="progress-container">
-    <!-- Barre Visite salle -->
-    <div class="bar-wrapper">
-      <div class="bar-header">
-        <span class="bar-label">Visite salle</span>
-      </div>
-      <div class="bar-container">
-        <div class="bar-fill xp" id="visiteFill"></div>
+  <div class="fishing-container">
+    <img src="https://raw.githubusercontent.com/Tcathelineau/salle_2026/main/images/fishing-rod.png" 
+         alt="Canne à pêche" 
+         class="fishing-rod" 
+         id="fishingRod">
+    
+    <div class="fishing-line" id="fishingLine"></div>
+    
+    <div class="progress-bar-container">
+      <div class="progress-section brick-section" id="brickSection"></div>
+      <div class="progress-section yellow-section" id="yellowSection"></div>
+      
+      <div class="hotdog-container" id="hotdogContainer">
+        <div class="hook-line"></div>
+        <img src="https://raw.githubusercontent.com/Tcathelineau/salle_2026/main/images/hotdog-dog.png" 
+             alt="Hot-dog chien" 
+             class="hotdog-img" 
+             id="hotdogImg">
       </div>
     </div>
-
-    <!-- Barre Objectif jour -->
-    <div class="bar-wrapper">
-      <div class="bar-header">
-        <span class="bar-label">Objectif jour</span>
+    
+    <div class="labels">
+      <div class="label">
+        <div class="color-box yellow-box"></div>
+        <span>Visite salle: <span id="visiteCount">0</span>/120</span>
       </div>
-      <div class="bar-container">
-        <div class="bar-fill time" id="objectifFill"></div>
+      <div class="label">
+        <div class="color-box brick-box"></div>
+        <span>Objectif jour: <span id="jourCount">0</span>/145</span>
       </div>
     </div>
   </div>
@@ -93,14 +160,9 @@
       const startDate = new Date('2026-01-07');
       const endDate = new Date('2026-06-01');
       const today = new Date();
-
-      // Calcul du nombre total de jours entre le 7 janvier et le 1er juin
+      
       const totalDays = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
-      
-      // Calcul des jours écoulés depuis le 7 janvier
       const daysElapsed = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
-      
-      // S'assurer que la valeur reste entre 0 et totalDays
       const clampedDays = Math.max(0, Math.min(daysElapsed, totalDays));
       
       return {
@@ -109,19 +171,38 @@
       };
     }
 
-    // Fonction pour mettre à jour les barres
+    // Fonction pour mettre à jour l'affichage
     function updateDisplay(visiteCount) {
-      // Barre Visite salle (0 à 120)
-      const visitePercent = Math.min((visiteCount / 120) * 100, 100);
-
-      // Barre Objectif jour (jours écoulés jusqu'au 1er juin 2026)
       const days = calculateDaysElapsed();
-      const objectifPercent = Math.min((days.current / days.total) * 100, 100);
       
-      // Animation des barres
+      // Calcul des pourcentages
+      const visitePercent = Math.min((visiteCount / 120) * 100, 100);
+      const jourPercent = Math.min((days.current / days.total) * 100, 100);
+      
+      // Mise à jour des compteurs
+      document.getElementById("visiteCount").innerText = visiteCount;
+      document.getElementById("jourCount").innerText = days.current;
+      
+      // Animation des barres et du hot-dog
       setTimeout(() => {
-        document.getElementById("visiteFill").style.width = visitePercent + "%";
-        document.getElementById("objectifFill").style.width = objectifPercent + "%";
+        const yellowSection = document.getElementById("yellowSection");
+        const brickSection = document.getElementById("brickSection");
+        const hotdogContainer = document.getElementById("hotdogContainer");
+        const fishingLine = document.getElementById("fishingLine");
+        
+        // Mise à jour des sections
+        yellowSection.style.width = visitePercent + "%";
+        brickSection.style.width = jourPercent + "%";
+        
+        // Position du hot-dog (suit la barre jaune)
+        const barWidth = document.querySelector(".progress-bar-container").offsetWidth;
+        const hotdogPosition = (visitePercent / 100) * barWidth - 30; // -30 pour centrer le hot-dog
+        hotdogContainer.style.left = Math.max(0, hotdogPosition) + "px";
+        
+        // Ligne de pêche qui suit le hot-dog
+        const lineHeight = 60 + 20; // hauteur jusqu'au hot-dog
+        fishingLine.style.height = lineHeight + "px";
+        fishingLine.style.left = (90 + hotdogPosition + 30) + "px"; // Ajusté pour suivre
       }, 100);
     }
 
@@ -134,11 +215,10 @@
         return response.json();
       })
       .then(data => {
-        updateDisplay(data.totalXP);
+        updateDisplay(data.NbrSéances);
       })
       .catch(error => {
         console.error('Erreur:', error);
-        // Valeur par défaut en cas d'erreur
         updateDisplay(0);
       });
   </script>
