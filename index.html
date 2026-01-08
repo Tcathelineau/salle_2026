@@ -134,7 +134,7 @@
         return response.json();
       })
       .then(data => {
-        updateDisplay(data.totalXP);
+        updateDisplay(data.NbrSéances);
       })
       .catch(error => {
         console.error('Erreur:', error);
